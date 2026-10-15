@@ -11,7 +11,15 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
+
+      - name: Zet de game klaar
+        run: |
+          mkdir -p www
+          for f in index.html three.min.js; do
+            if [ -f "$f" ]; then cp "$f" www/; fi
+          done
+          ls -la www
 
       - name: Installeer Capacitor
         run: npm install
@@ -23,7 +31,7 @@ jobs:
         run: cp icon.png ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png || true
 
       - name: Kopieer de game naar de app
-        run: npx cap sync ios
+        run: npx cap copy ios
 
       - name: Bouw de app zonder handtekening
         run: |
