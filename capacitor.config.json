@@ -1,0 +1,9 @@
+{
+  "appId": "com.thissie.drive",
+  "appName": "Thissie Drive",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#0a0f10"
+  }
+}

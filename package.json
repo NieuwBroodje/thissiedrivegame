@@ -1,0 +1,11 @@
+{
+  "name": "thissie-drive",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Thissie Drive: teken een circuit en race het in 3D.",
+  "dependencies": {
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/ios": "^6.1.2"
+  }
+}
