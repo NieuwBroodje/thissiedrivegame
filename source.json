@@ -1,5 +1,7 @@
 {
   "name": "Thissie Drive",
+  "identifier": "com.thissie.drive.source",
+  "sourceURL": "https://raw.githubusercontent.com/NieuwBroodje/thissiedrivegame/main/source.json",
   "subtitle": "Teken een circuit en race het.",
   "description": "Mijn eigen racegame.",
   "iconURL": "https://raw.githubusercontent.com/NieuwBroodje/thissiedrivegame/main/icon.png",
