@@ -1,0 +1,36 @@
+{
+  "name": "Thissie Drive",
+  "subtitle": "Teken een circuit en race het.",
+  "description": "Mijn eigen racegame.",
+  "iconURL": "https://raw.githubusercontent.com/NieuwBroodje/thissiedrivegame/main/icon.png",
+  "tintColor": "#FFB41F",
+  "apps": [
+    {
+      "name": "Thissie Drive",
+      "bundleIdentifier": "com.thissie.drive",
+      "developerName": "Thissie",
+      "subtitle": "Teken en race",
+      "localizedDescription": "Teken een circuit en rijd het in 3D.",
+      "iconURL": "https://raw.githubusercontent.com/NieuwBroodje/thissiedrivegame/main/icon.png",
+      "tintColor": "#FFB41F",
+      "category": "games",
+      "screenshots": [],
+      "versions": [
+        {
+          "version": "1.0",
+          "buildVersion": "1",
+          "date": "2026-10-16",
+          "localizedDescription": "Eerste versie.",
+          "downloadURL": "https://github.com/NieuwBroodje/thissiedrivegame/releases/download/v1/ThissieDrive.ipa",
+          "size": 1016397,
+          "minOSVersion": "13.0"
+        }
+      ],
+      "appPermissions": {
+        "entitlements": [],
+        "privacy": {}
+      }
+    }
+  ],
+  "news": []
+}
