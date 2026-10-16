@@ -2,6 +2,13 @@ name: IPA bouwen
 
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: Versienummer (bijv. 1.1)
+        default: "1.1"
+      build:
+        description: Buildnummer (bijv. 2)
+        default: "2"
 
 jobs:
   build:
@@ -16,8 +23,8 @@ jobs:
       - name: Zet de game klaar
         run: |
           mkdir -p www
-          if [ ! -f www/index.html ]; then cp index.html www/; fi
-          if [ ! -f www/three.min.js ]; then cp three.min.js www/; fi
+          if [ -f index.html ]; then cp index.html www/; fi
+          if [ -f three.min.js ]; then cp three.min.js www/; fi
           ls -la www
 
       - name: Installeer Capacitor
@@ -41,7 +48,8 @@ jobs:
             -sdk iphoneos \
             -archivePath "$PWD/build/App.xcarchive" \
             archive \
-            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY=""
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            MARKETING_VERSION="${{ inputs.version }}" CURRENT_PROJECT_VERSION="${{ inputs.build }}"
 
       - name: Maak het IPA-bestand
         run: |
