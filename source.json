@@ -19,6 +19,15 @@
       "screenshots": [],
       "versions": [
         {
+          "version": "1.1",
+          "buildVersion": "2",
+          "date": "2026-10-17",
+          "localizedDescription": "Realistischer sturen, motorgeluid en soepeler op telefoon.",
+          "downloadURL": "https://github.com/NieuwBroodje/thissiedrivegame/releases/download/v1.1/ThissieDrive.ipa",
+          "size": 1000000,
+          "minOSVersion": "13.0"
+        },
+        {
           "version": "1.0",
           "buildVersion": "1",
           "date": "2026-10-16",
