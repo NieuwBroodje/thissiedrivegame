@@ -199,6 +199,7 @@ button:active{transform:scale(.97)}
 <div id="cd"></div>
 
 <script src="three.min.js"></script>
+<script src="supabase.js"></script>
 <script>
 const $=s=>document.querySelector(s);
 const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
@@ -496,10 +497,24 @@ function clearRemotes(){Object.values(remotes).forEach(g=>scene.remove(g));remot
 function leaveParty(){if(room){room.leave().catch(()=>{});room=null}clearRemotes();mpTrack=null;$('#board').hidden=true;$('#mpA').hidden=false;$('#mpB').hidden=true}
 function sendTrk(){if(room&&track)room.emit('trk',{w:track.world.flatMap(p=>[Math.round(p.x),Math.round(p.z)]),e:track.e.map(v=>Math.round(v*10))}).catch(()=>{})}
 function who(peers){$('#who').replaceChildren(...peers.map(p=>{const d=document.createElement('div');d.className='item';d.textContent=String(p.presence.n||'Racer').slice(0,12)+(p.isMe?' (jij)':'');return d}))}
+const SB_URL='https://ffhzecibzxecgfoaqdfa.supabase.co',SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZmaHplY2lienhlY2dmb2FxZGZhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI0ODg5NDksImV4cCI6MjEwODA2NDk0OX0.TIbots64sjha4Suyj5HsLm_DIxH4yRfuTaL7jjUXzMM';
+async function sbJoin(name){
+  const id=Math.random().toString(36).slice(2,10),sb=window.supabase.createClient(SB_URL,SB_KEY,{realtime:{params:{eventsPerSecond:40}}});
+  const ch=sb.channel(name,{config:{broadcast:{self:true},presence:{key:id}}}),meta={},pos={},handlers={},cbs=[];let known={};
+  const list=()=>{const st=ch.presenceState();return Object.keys(st).map(k=>({peer:k,isMe:k===id,presence:Object.assign({},st[k][0]||{},pos[k]||{})}))};
+  ch.on('broadcast',{event:'pos'},m=>{const p=m.payload;if(p&&p.id&&p.id!==id&&p.d)pos[p.id]=p.d});
+  ch.on('broadcast',{event:'msg'},m=>{const p=m.payload;if(p&&handlers[p.t])handlers[p.t]({isMe:p.id===id,data:p.d})});
+  ch.on('presence',{event:'sync'},()=>{const peers=list(),joined=peers.filter(p=>!known[p.peer]);known={};peers.forEach(p=>known[p.peer]=1);cbs.forEach(f=>f({peers,joined}))});
+  await new Promise((res,rej)=>{const to=setTimeout(()=>rej(new Error('timeout')),8000);ch.subscribe(s=>{if(s==='SUBSCRIBED'){clearTimeout(to);res()}else if(s==='CHANNEL_ERROR'||s==='TIMED_OUT'){clearTimeout(to);rej(new Error(s))}})});
+  await ch.track({});
+  return{on:(t,f)=>{handlers[t]=f},emit:(t,d)=>ch.send({type:'broadcast',event:'msg',payload:{t,id,d}}),
+    presence:patch=>{if('x' in patch)ch.send({type:'broadcast',event:'pos',payload:{id,d:patch}});else{Object.assign(meta,patch);ch.track(meta)}},
+    peers:list,onPeers:f=>{cbs.push(f)},leave:async()=>{try{await ch.untrack();await sb.removeAllChannels()}catch(e){}}};
+}
 async function mpEnter(code,host){
   const err=m=>{$('#mpErr').textContent=m};let R=null;
-  try{R=window.claude?await claude.use('room'):null}catch(e){}
-  if(!R){err('Multiplayer werkt alleen voor mensen die deze pagina in Claude kunnen openen. Deel de pagina met je vrienden.');return}
+  try{R=window.supabase?{join:sbJoin}:(window.claude?await claude.use('room'):null)}catch(e){}
+  if(!R){err('Multiplayer is hier niet beschikbaar. Controleer je internetverbinding en update de app.');return}
   if(host&&!track)sample();
   try{room=await R.join('krijtlijn-'+code.toLowerCase())}catch(e){err('Meedoen aan de party is mislukt. Probeer het opnieuw.');return}
   isHost=host;err('');$('#mpA').hidden=true;$('#mpB').hidden=false;$('#pc').textContent=code;$('#bStartMp').hidden=!host;$('#mpWait').hidden=host;

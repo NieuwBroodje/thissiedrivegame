@@ -1,0 +1,64 @@
+name: IPA bouwen
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Versienummer (bijv. 1.1)
+        default: "1.2"
+      build:
+        description: Buildnummer (bijv. 2)
+        default: "3"
+
+jobs:
+  build:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Zet de game klaar
+        run: |
+          mkdir -p www
+          if [ -f index.html ]; then cp index.html www/; fi
+          if [ -f three.min.js ]; then cp three.min.js www/; fi
+          if [ -f supabase.js ]; then cp supabase.js www/; fi
+          ls -la www
+
+      - name: Installeer Capacitor
+        run: npm install
+
+      - name: Maak het iOS-project
+        run: npx cap add ios
+
+      - name: Zet het app-icoon
+        run: cp icon.png ios/App/App/Assets.xcassets/AppIcon.appiconset/AppIcon-512@2x.png || true
+
+      - name: Kopieer de game naar de app
+        run: npx cap copy ios
+
+      - name: Bouw de app zonder handtekening
+        run: |
+          xcodebuild \
+            -workspace ios/App/App.xcworkspace \
+            -scheme App \
+            -configuration Release \
+            -sdk iphoneos \
+            -archivePath "$PWD/build/App.xcarchive" \
+            archive \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            MARKETING_VERSION="${{ inputs.version }}" CURRENT_PROJECT_VERSION="${{ inputs.build }}"
+
+      - name: Maak het IPA-bestand
+        run: |
+          mkdir -p Payload
+          cp -R build/App.xcarchive/Products/Applications/App.app Payload/
+          zip -qry ThissieDrive.ipa Payload
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ThissieDrive-ipa
+          path: ThissieDrive.ipa
