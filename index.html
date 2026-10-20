@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-<title>Thissie Drive</title>
+<title>Thissie Race</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap">
 <style>
 :root{--bg:#efeadf;--ink:#15191a;--grid:#e0d9c8;--accent:#e08a00;--onaccent:#fff;--panel:rgba(255,255,255,.85);--glow:#e08a00;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
@@ -49,8 +49,8 @@ button:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 .hero h1{font-size:clamp(64px,17vw,150px)}
 .tag{margin:0 0 6px;font-size:clamp(20px,4vw,30px);max-width:18ch;line-height:1.1}
 .cta{font-size:28px;padding:18px 54px}
-#saved,#mp{position:fixed;inset:0;z-index:5;background:var(--bg);padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 14px);display:flex;flex-direction:column;gap:14px;overflow:auto;touch-action:pan-y}
-#saved h1,#mp h1{font-size:clamp(34px,8vw,56px)}
+#saved,#mp,#daily{position:fixed;inset:0;z-index:5;background:var(--bg);padding:calc(env(safe-area-inset-top,0px) + 14px) 16px calc(env(safe-area-inset-bottom,0px) + 14px);display:flex;flex-direction:column;gap:14px;overflow:auto;touch-action:pan-y}
+#saved h1,#mp h1,#daily h1{font-size:clamp(34px,8vw,56px)}
 #list{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
 .item{display:flex;gap:10px;align-items:center;background:var(--panel);border-radius:8px;padding:8px;border-left:4px solid var(--accent)}
 .item canvas{width:120px;height:75px;background:rgba(128,128,160,.15);border-radius:6px}
@@ -65,7 +65,7 @@ input{font:inherit;font-weight:700;font-size:22px;padding:12px 14px;border-radiu
 .tile span{font-size:17px;opacity:.8;font-weight:600}
 .tile:disabled{opacity:.5;cursor:default}
 .tile i{position:absolute;right:10px;top:10px;font-size:13px;background:rgba(255,255,255,.16);border-radius:10px;padding:2px 10px}
-#mp{z-index:6;gap:12px;align-items:center;text-align:center}
+#mp,#daily{z-index:6;gap:12px;align-items:center;text-align:center}
 #mp p{margin:4px 0}
 #who{display:grid;gap:6px;width:min(320px,100%)}
 #board{position:fixed;left:14px;top:calc(env(safe-area-inset-top,0px) + 120px);font-size:17px;pointer-events:none;line-height:1.3}
@@ -131,13 +131,35 @@ button:active{transform:scale(.97)}
 #hud{left:max(14px,env(safe-area-inset-left,0px));right:max(14px,env(safe-area-inset-right,0px))}
 #pad{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 @media (max-width:700px){.bar{gap:6px}.bar button{font-size:12px;padding:10px 12px;min-height:40px}#pad button{width:72px;height:72px;font-size:26px}#spd{bottom:calc(env(safe-area-inset-bottom,0px) + 112px);font-size:44px}.big{font-size:26px}#top{bottom:calc(env(safe-area-inset-bottom,0px) + 190px)}}
+#start{display:flex;flex-direction:column;justify-content:space-between;padding:calc(env(safe-area-inset-top,0px) + 30px) 22px calc(env(safe-area-inset-bottom,0px) + 28px);overflow:hidden;color:#f4efe4}
+#start::before{display:block;pointer-events:none;background:linear-gradient(180deg,rgba(8,12,20,.8) 0%,rgba(8,12,20,0) 36%,rgba(8,12,20,0) 52%,rgba(8,12,20,.88) 100%)}
+.logoBig{font-size:clamp(46px,13vw,104px);font-weight:700;letter-spacing:.12em;line-height:.95;position:relative}
+.logoBig span{color:var(--accent);display:block}
+.homeTop{position:relative}
+.homeTop .sub{opacity:.85;font-size:clamp(14px,3.6vw,20px);letter-spacing:.08em;margin:12px 0 0}
+.homeBot{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px}
+.play{width:100%;max-width:420px;font-size:22px;padding:18px 0;letter-spacing:.2em}
+.homeRow{display:flex;gap:10px;width:100%;max-width:420px}
+.homeRow button{flex:1;padding:12px 6px;font-size:12px;display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.2;color:#f4efe4;background:rgba(14,20,26,.6);backdrop-filter:blur(8px)}
+.homeRow small{font-size:10px;opacity:.7;text-transform:none;letter-spacing:.04em}
+#start .chip{color:#f4efe4;background:rgba(14,20,26,.5)}
+@media (max-height:520px){.logoBig{font-size:54px}.logoBig span{display:inline;margin-left:.3em}.homeBot{flex-direction:row;flex-wrap:wrap;justify-content:center}.play{width:auto;padding:12px 40px}.homeRow{width:auto}}
+#dBoard{display:grid;gap:8px;width:min(420px,92vw)}
+#dBest{color:var(--accent)}
+#sbar{width:150px;height:6px;border-radius:3px;background:rgba(255,255,255,.22);margin:8px auto 0;overflow:hidden}
+#sbar i{display:block;height:100%;width:0;background:var(--accent)}
+#pad button{background:rgba(14,20,26,.55);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.28)}
+#pad button.main{background:var(--accent);border-color:transparent}
+#pad [data-k=down]{border-color:#e5483a;color:#ff8a7e}
+#cd{text-shadow:0 6px 40px rgba(0,0,0,.6);color:#fff}
+.card{backdrop-filter:blur(10px);background:rgba(14,20,26,.55);color:#f4efe4}
 </style>
 </head>
 <body>
 <canvas id="draw"></canvas>
 <canvas id="lines" hidden></canvas><div id="gl"></div>
 
-<div id="menu"><h1>Thissie Drive</h1><p id="hint">Teken een rondje met je vinger of muis. Dat wordt je circuit.</p></div>
+<div id="menu"><h1>Thissie Race</h1><p id="hint">Teken een rondje met je vinger of muis. Dat wordt je circuit.</p></div>
 <div class="bar" id="menuBar">
   <button id="bHome" aria-label="Terug naar start">Start</button>
   <button id="bSample">Voorbeeldbaan</button>
@@ -154,7 +176,7 @@ button:active{transform:scale(.97)}
 </div>
 <div id="top" hidden><button id="bRestart">Opnieuw starten</button><button id="bMute">Geluid aan</button><button id="bRedraw">Menu</button></div>
 <div id="fx" hidden></div>
-<div id="spd" hidden><span id="sv">0</span><small> km/u</small></div>
+<div id="spd" hidden><span id="sv">0</span><small> km/u</small><div id="sbar"><i></i></div></div>
 <div id="pad" hidden>
   <div><button data-k="left" aria-label="Links">◀</button><button data-k="right" aria-label="Rechts">▶</button></div>
   <div><button data-k="down" aria-label="Remmen">▼</button><button data-k="up" class="main" aria-label="Gas">▲</button></div>
@@ -165,18 +187,32 @@ button:active{transform:scale(.97)}
 <button class="tile" style="--c:#35e6ff" data-m="mp"><b>Multiplayer</b><span>Maak een party of doe mee met een code.</span></button>
 <button class="tile" style="--c:#7cff6b" data-m="saved"><b>Mijn banen</b><span>Je opgeslagen circuits.</span></button>
 <button class="tile" style="--c:#a259ff" data-m="garage"><b>Garage</b><span>Kies je auto en kleur.</span></button>
-<button class="tile" style="--c:#f2c230" disabled><i>Binnenkort</i><b>Dagelijkse proef</b><span>Elke dag dezelfde baan, met ghost.</span></button>
+<button class="tile" style="--c:#f2c230" data-m="daily"><i>Nieuw</i><b>Dagelijkse proef</b><span>Elke dag dezelfde baan voor iedereen. Jaag op de ranglijst.</span></button>
 <button class="tile" style="--c:#3ddc97" disabled><i>Binnenkort</i><b>Rallystage</b><span>Van A naar B over asfalt, zand of sneeuw.</span></button>
 <button class="tile" style="--c:#ff6a3d" disabled><i>Binnenkort</i><b>Ovaalrace</b><span>Tien ronden op een scherp bochtig ovaal.</span></button>
 <button class="tile" style="--c:#4d8bff" disabled><i>Binnenkort</i><b>Drag race</b><span>Naast elkaar, een kwart mijl, tegen de lichten.</span></button>
 </div></div></div>
+<div id="daily" hidden><h1>Dagelijkse proef</h1><p class="small" id="dDate"></p>
+<canvas id="dCv" width="640" height="400" style="width:min(520px,92vw);height:auto;border-radius:10px;background:rgba(128,128,150,.12)"></canvas>
+<p>Jouw beste vandaag: <b id="dBest">-</b></p>
+<div class="row"><input id="dnick" maxlength="12" value="Racer" aria-label="Je naam"></div>
+<div id="dBoard"></div>
+<div class="row"><button class="main" id="dGo">Rijden</button><button id="dBack">Terug</button></div></div>
 <div id="mp" hidden><h1>Multiplayer</h1>
 <div id="mpA"><p>Je naam</p><input id="nick" maxlength="12" value="Racer" aria-label="Je naam"><div class="row" style="margin:12px 0"><button class="main" id="bHost">Maak party</button></div><p>of doe mee met een code</p><div class="row"><input id="code" maxlength="4" placeholder="CODE" aria-label="Partycode"><button id="bJoin">Doe mee</button></div></div>
 <div id="mpB" hidden><p>Partycode: deel deze met je vrienden</p><div class="big" id="pc" style="font-size:72px;letter-spacing:.08em"></div><p class="small">In de lobby</p><div id="who"></div><div class="row" style="margin-top:12px"><button class="main" id="bStartMp">Start race</button></div><p class="small" id="mpWait">Wachten tot de host de race start.</p></div>
 <p class="small" id="mpErr"></p><div class="row"><button id="bMpBack">Terug</button></div></div>
 <div id="board" class="card" hidden></div>
 <div id="saved" hidden><h1>Mijn banen</h1><div id="list"></div><div class="row"><button class="main" id="bBack">Terug</button></div></div>
-<div id="start" hidden><div class="wrap">
+<div id="start" hidden>
+  <div class="homeTop"><div class="logoBig">THISSIE<span>RACE</span></div><p class="sub">Teken je circuit. Race het in 3D.</p></div>
+  <div class="homeBot">
+    <button class="main play" data-go="modes">Spelen</button>
+    <div class="homeRow"><button data-go="daily"><small>Vandaag</small>Dagelijkse proef</button><button data-go="garage"><small>Je auto</small>Garage</button><button data-go="mp"><small>Met vrienden</small>Multiplayer</button></div>
+    <button class="chip" data-go="how">Hoe werkt het</button>
+  </div>
+</div>
+<div id="oldhub" hidden><div class="wrap">
   <div class="hd"></div>
   <div class="grid2">
     <button class="card2" style="--c:#ffb41f" data-go="modes"><i class="pill">8 modi</i><b>Spelen</b><span>Teken en rijd, multiplayer en meer. Kies je speelmodus.</span></button>
@@ -187,13 +223,13 @@ button:active{transform:scale(.97)}
   <div class="party"><b>Race met vrienden: maak een party</b><p>Een naam en een code van vier tekens. Jullie rijden live op dezelfde baan.</p><button class="main" data-go="mp">Party maken of joinen</button></div>
   <div class="chips" style="margin-top:18px"><button class="chip" data-go="how">Hoe werkt het</button></div>
 </div></div>
-<div id="how" hidden><div class="box"><h1 style="font-size:26px">Hoe werkt het</h1><p>1. Kies Spelen en dan Teken &amp; rijd.<br>2. Teken met je vinger of muis een rondje. Kruis je jezelf, dan komt er een brug.<br>3. Tik op Rijden. Stuur met de pijlen, of met de pijltjestoetsen of WASD.<br>4. Je beste ronde rijdt de volgende keer als blauwe ghost mee.<br>5. Met Multiplayer maak je een party en deel je de code.</p><button class="main" data-x>Sluiten</button></div></div>
+<div id="how" hidden><div class="box"><h1 style="font-size:26px">Hoe werkt het</h1><p>1. Kies Spelen en dan Teken &amp; rijd.<br>2. Teken met je vinger of muis een rondje. Kruis je jezelf, dan komt er een brug.<br>3. Tik op Rijden. Stuur met de pijlen, of met de pijltjestoetsen of WASD.<br>4. Je beste ronde rijdt de volgende keer als blauwe ghost mee.<br>5. Met Multiplayer maak je een party en deel je de code.<br>6. In de dagelijkse proef rijdt iedereen dezelfde baan en zie je de ranglijst.</p><button class="main" data-x>Sluiten</button></div></div>
 <div id="oldstart" hidden>
   <div class="hero"><p class="tag">Teken je circuit. Rijd het in 3D.</p><h1>Krijtlijn</h1></div>
   <div class="gpanel"><div class="row"><button class="main cta" id="bPlay">Start</button><button class="cta" id="bG2">Garage</button></div><p class="small" style="margin:0">Tip: laat je baan zichzelf kruisen, dan komt er een brug.</p></div>
 </div>
 <div id="garage" hidden>
-  <div class="gt"><h1>Garage</h1></div>
+  <div class="gt"><h1>Garage</h1><p class="small" id="gcar" style="margin:6px 0 0"></p></div>
   <div class="gpanel"><div id="cars" class="row"></div><div id="stats"></div><div id="sw" class="row"></div><button class="main" id="bDone">Klaar</button></div>
 </div>
 <div id="cd"></div>
@@ -215,13 +251,16 @@ function redraw(){
   for(let x=0;x<innerWidth;x+=32){dx.moveTo(x,0);dx.lineTo(x,innerHeight)}
   for(let y=0;y<innerHeight;y+=32){dx.moveTo(0,y);dx.lineTo(innerWidth,y)}
   dx.stroke();
-  const pts=track?track.screen:raw; if(pts.length<2)return;
-  dx.lineCap=dx.lineJoin='round';dx.shadowColor=css('--glow');dx.shadowBlur=track?28:16;dx.strokeStyle=css('--ink');dx.lineWidth=track?18:10;
+  const pts=track?track.screen:raw;
+  if(!track&&raw.length<2){dx.fillStyle=css('--ink');dx.globalAlpha=.35;dx.font='600 22px "Space Grotesk",sans-serif';dx.textAlign='center';dx.fillText('Teken hier je circuit',innerWidth/2,innerHeight/2);dx.globalAlpha=1}
+  if(pts.length<2)return;
+  if(track){dx.lineCap=dx.lineJoin='round';dx.lineWidth=40;['#ece7da','#d8362f'].forEach((cc,i)=>{dx.strokeStyle=cc;dx.setLineDash([14,14]);dx.lineDashOffset=i*14;dx.beginPath();pts.forEach((p,k)=>k?dx.lineTo(p.x,p.y):dx.moveTo(p.x,p.y));dx.closePath();dx.stroke()});dx.setLineDash([]);dx.lineDashOffset=0}
+  dx.lineCap=dx.lineJoin='round';dx.shadowColor=css('--glow');dx.shadowBlur=track?0:16;dx.strokeStyle=track?'#2b3036':css('--accent');dx.lineWidth=track?32:8;
   dx.beginPath();pts.forEach((p,i)=>{if(!i)dx.moveTo(p.x,p.y);else if(track||i<2)dx.lineTo(p.x,p.y);else{const q=pts[i-1];dx.quadraticCurveTo(q.x,q.y,(q.x+p.x)/2,(q.y+p.y)/2)}});
   if(track)dx.closePath();dx.stroke();dx.shadowBlur=0;
-  if(!track&&pts.length>2){const e=pts[pts.length-1],s0=pts[0];dx.setLineDash([8,10]);dx.lineWidth=3;dx.beginPath();dx.moveTo(e.x,e.y);dx.lineTo(s0.x,s0.y);dx.stroke();dx.setLineDash([]);dx.fillStyle=css('--accent');dx.beginPath();dx.arc(s0.x,s0.y,9,0,7);dx.fill()}
-  if(track){dx.strokeStyle=css('--bg');dx.lineWidth=2;dx.setLineDash([10,12]);dx.stroke();dx.setLineDash([]);dx.strokeStyle=css('--accent');dx.lineWidth=7;track.e.forEach((v,i)=>{if(v>1){const a=pts[i],b=pts[(i+1)%pts.length];dx.beginPath();dx.moveTo(a.x,a.y);dx.lineTo(b.x,b.y);dx.stroke()}});
-    dx.fillStyle=css('--accent');dx.beginPath();dx.arc(pts[0].x,pts[0].y,10,0,7);dx.fill();{const a=pts[0],b=pts[6],an=Math.atan2(b.y-a.y,b.x-a.x);dx.save();dx.translate(b.x,b.y);dx.rotate(an);dx.beginPath();dx.moveTo(14,0);dx.lineTo(-8,9);dx.lineTo(-8,-9);dx.fill();dx.restore()}}
+  if(!track&&pts.length>2){const e=pts[pts.length-1],s0=pts[0];dx.setLineDash([8,10]);dx.lineWidth=3;dx.beginPath();dx.moveTo(e.x,e.y);dx.lineTo(s0.x,s0.y);dx.stroke();dx.setLineDash([]);dx.fillStyle=css('--accent');dx.beginPath();dx.arc(s0.x,s0.y,9,0,7);dx.fill();if(pts.length>30&&Math.hypot(e.x-s0.x,e.y-s0.y)<70){dx.strokeStyle=css('--accent');dx.lineWidth=3;dx.beginPath();dx.arc(s0.x,s0.y,22,0,7);dx.stroke()}}
+  if(track){dx.strokeStyle='#f1ede4';dx.lineWidth=2;dx.setLineDash([10,12]);dx.stroke();dx.setLineDash([]);dx.strokeStyle=css('--accent');dx.lineWidth=7;track.e.forEach((v,i)=>{if(v>1){const a=pts[i],b=pts[(i+1)%pts.length];dx.beginPath();dx.moveTo(a.x,a.y);dx.lineTo(b.x,b.y);dx.stroke()}});
+    dx.fillStyle=css('--accent');dx.beginPath();dx.arc(pts[0].x,pts[0].y,10,0,7);dx.fill();{const a=pts[0],b=pts[6],an=Math.atan2(b.y-a.y,b.x-a.x);dx.save();dx.translate(a.x,a.y);dx.rotate(an);dx.fillStyle='#fff';dx.fillRect(-5,-18,10,36);dx.fillStyle='#111';for(let q=0;q<4;q++)dx.fillRect(q%2?-5:0,-18+q*9,5,9);dx.restore();dx.fillStyle=css('--accent');dx.save();dx.translate(b.x,b.y);dx.rotate(an);dx.beginPath();dx.moveTo(14,0);dx.lineTo(-8,9);dx.lineTo(-8,-9);dx.fill();dx.restore()}}
 }
 function pos(e){return{x:e.clientX,y:e.clientY}}
 dc.addEventListener('pointerdown',e=>{if(mode!=='draw')return;dc.setPointerCapture(e.pointerId);drawing=true;track=null;raw=[pos(e)];$('#bGo').disabled=true;redraw()});
@@ -259,6 +298,7 @@ function init3d(){
   renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.setSize(innerWidth,innerHeight);
   $('#gl').appendChild(renderer.domElement);
   scene=new THREE.Scene();const sc=document.createElement('canvas');sc.width=2;sc.height=256;const sx=sc.getContext('2d'),gr=sx.createLinearGradient(0,0,0,256);[[0,'#1b1f4b'],[.5,'#c2476b'],[.8,'#ff9a5c'],[1,'#ffd08a']].forEach(a=>gr.addColorStop(a[0],a[1]));sx.fillStyle=gr;sx.fillRect(0,0,2,256);scene.background=new THREE.CanvasTexture(sc);scene.fog=new THREE.Fog(0xe9906a,150,2200);
+  {const pm=new THREE.PMREMGenerator(renderer),es=new THREE.Scene();es.add(new THREE.Mesh(new THREE.SphereGeometry(50,32,16),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(sc),side:THREE.BackSide})));scene.environment=pm.fromScene(es).texture}
   cam=new THREE.PerspectiveCamera(62,innerWidth/innerHeight,1,4000);
   scene.add(new THREE.HemisphereLight(0xffd9b8,0x4a5a3c,.9));
   const sun=new THREE.DirectionalLight(0xffb57a,1);sun.position.set(-120,60,-80);scene.add(sun);
@@ -340,7 +380,7 @@ function buildWorld(t){
   box(20,.5,46,M(0xe8e8ec),W/2+22,9.2,0);[-20,0,20].forEach(z=>box(.6,9,.6,M(0x444a52),W/2+13.5,4.5,z));
   box(8,5,56,M(0xd5d9de),-(W/2+16),2.5,0);box(.3,1.6,52,M(0x1a2634),-(W/2+11.9),3,0);box(11,.5,58,M(0x2a3040),-(W/2+14.5),5.3,0);
   world.add(gs);
-  const bt=['#ff2d6a','#35e6ff','#f2c230','#7cff6b'].map((cl,k)=>{const cv=document.createElement('canvas');cv.width=256;cv.height=64;const x=cv.getContext('2d');x.fillStyle=cl;x.fillRect(0,0,256,64);x.fillStyle='#0b1020';x.font='800 26px Saira,sans-serif';x.textAlign='center';x.fillText(['THISSIE DRIVE','TEKEN & RACE','FULL GAS','GRIP'][k],128,46);return new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cv)})});
+  const bt=['#ff2d6a','#35e6ff','#f2c230','#7cff6b'].map((cl,k)=>{const cv=document.createElement('canvas');cv.width=256;cv.height=64;const x=cv.getContext('2d');x.fillStyle=cl;x.fillRect(0,0,256,64);x.fillStyle='#0b1020';x.font='800 26px Saira,sans-serif';x.textAlign='center';x.fillText(['THISSIE RACE','TEKEN & RACE','FULL GAS','GRIP'][k],128,46);return new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(cv)})});
   for(let i=6;i<N;i+=11){if(E[i]>.3||curv(i)>.03)continue;const s=(i%22<11)?1:-1,p=edge(i,s*(W/2+9.5)),tg=tan(i),m=new THREE.Mesh(new THREE.BoxGeometry(8,2.2,.3),bt[(i/11|0)%4]);m.position.set(p[0],2.6,p[1]);m.rotation.y=Math.atan2(-tg[1],tg[0]);world.add(m);const ps=new THREE.Mesh(new THREE.BoxGeometry(.3,1.6,.3),M(0x444a52));ps.position.set(p[0],.8,p[1]);world.add(ps)}
   scene.add(world);
 }
@@ -348,7 +388,7 @@ function buildWorld(t){
 /* ---------- auto's en garage ---------- */
 const CARS=[{n:'Kart',top:50,acc:40,grip:1.3},{n:'GT',top:64,acc:36,grip:1},{n:'Formule',top:74,acc:44,grip:1.15},{n:'Hatchback',top:52,acc:30,grip:.9}];
 const COLS=['#f2c230','#ff2d6a','#35e6ff','#7cff6b','#f4f4f0','#a259ff'];
-let sel={car:0,col:0},gt=0,back='draw',gh;
+let sel={car:0,col:0},gt=0,back='draw',gh,daily=null;
 function buildCar(){
   while(car.children.length)car.remove(car.children[0]);wheels.length=0;
   const col=new THREE.Color(COLS[sel.col]),M=c=>new THREE.MeshLambertMaterial({color:c}),dark=0x151a24,glass=0x1c2533,t=sel.car;
@@ -366,7 +406,7 @@ function renderGarage(){
   $('#cars').innerHTML=CARS.map((c,i)=>`<button class="car" data-i="${i}" aria-pressed="${i==sel.car}">${c.n}</button>`).join('');
   $('#sw').innerHTML=COLS.map((c,i)=>`<button class="sw" data-i="${i}" aria-label="Kleur ${i+1}" aria-pressed="${i==sel.col}" style="background:${c}"></button>`).join('');
   const C=CARS[sel.car],row=(l,v)=>`<div class="st"><span>${l}</span><div class="meter"><i style="width:${v*100}%"></i></div></div>`;
-  $('#stats').innerHTML=row('Topsnelheid',C.top/74)+row('Optrekken',C.acc/44)+row('Grip',C.grip/1.3);
+  $('#stats').innerHTML=row('Topsnelheid',C.top/74)+row('Optrekken',C.acc/44)+row('Grip',C.grip/1.3);$('#gcar').textContent=C.n;
 }
 $('#cars').onclick=e=>{const b=e.target.closest('button');if(b){sel.car=+b.dataset.i;buildCar();renderGarage()}};
 $('#sw').onclick=e=>{const b=e.target.closest('button');if(b){sel.col=+b.dataset.i;buildCar();renderGarage()}};
@@ -375,16 +415,54 @@ $('#bDone').onclick=()=>{show(back);redraw()};
 $('#bG2').onclick=()=>{$('#bGarage').click();back='start'};
 $('#bPlay').onclick=()=>show('modes');
 $('#bHome').onclick=()=>show('start');
+/* ---------- dagelijkse proef ---------- */
+let dTrack=null;
+const dayStr=()=>new Date().toISOString().slice(0,10);
+function dailyTrack(){
+  let h=2166136261;for(const ch of dayStr()){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}
+  let s=(h>>>0)%2147483647||7;const rnd=()=>(s=(s*16807)%2147483647)/2147483647;
+  const p=[rnd()*6,rnd()*6,rnd()*6],a=[.22+rnd()*.2,.08+rnd()*.18,.04+rnd()*.1],r=[];
+  for(let i=0;i<160;i++){const t=i/160*Math.PI*2,q=1+a[0]*Math.sin(2*t+p[0])+a[1]*Math.sin(3*t+p[1])+a[2]*Math.sin(5*t+p[2]);r.push({x:500+Math.cos(t)*q*320,y:350+Math.sin(t)*q*200})}
+  return process(r);
+}
+function prevTrack(cv,t){
+  const x=cv.getContext('2d'),P=t.screen;x.clearRect(0,0,cv.width,cv.height);let a=1e9,b=1e9,c=-1e9,d=-1e9;P.forEach(p=>{a=Math.min(a,p.x);b=Math.min(b,p.y);c=Math.max(c,p.x);d=Math.max(d,p.y)});
+  const s=Math.min((cv.width-90)/(c-a),(cv.height-90)/(d-b)),ox=(cv.width-(c-a)*s)/2-a*s,oy=(cv.height-(d-b)*s)/2-b*s,X=p=>p.x*s+ox,Y=p=>p.y*s+oy;
+  const path=()=>{x.beginPath();P.forEach((p,i)=>i?x.lineTo(X(p),Y(p)):x.moveTo(X(p),Y(p)));x.closePath()};
+  x.lineCap=x.lineJoin='round';x.lineWidth=28;x.strokeStyle='#ece7da';x.setLineDash([12,12]);path();x.stroke();x.strokeStyle='#d8362f';x.lineDashOffset=12;path();x.stroke();x.setLineDash([]);x.lineDashOffset=0;
+  x.lineWidth=22;x.strokeStyle='#2b3036';path();x.stroke();x.lineWidth=2;x.strokeStyle='#f1ede4';x.setLineDash([8,10]);path();x.stroke();x.setLineDash([]);
+  x.strokeStyle='#ffb41f';x.lineWidth=8;t.e.forEach((v,i)=>{if(v>1){const A=P[i],B=P[(i+1)%P.length];x.beginPath();x.moveTo(X(A),Y(A));x.lineTo(X(B),Y(B));x.stroke()}});
+  x.fillStyle='#ffb41f';x.beginPath();x.arc(X(P[0]),Y(P[0]),10,0,7);x.fill();
+}
+async function loadBoard(){
+  const el=$('#dBoard');el.textContent='Ranglijst laden...';
+  try{const r=await fetch(SB_URL+'/rest/v1/daily_scores?day=eq.'+dayStr()+'&order=ms.asc&limit=10',{headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY}});if(!r.ok)throw 0;const rows=await r.json();
+    if(!rows.length){el.textContent='Nog niemand heeft vandaag gereden. Wees de eerste!';return}
+    el.replaceChildren(...rows.map((x,i)=>{const d=document.createElement('div');d.className='item';const b=document.createElement('b'),s=document.createElement('span');b.textContent=(i+1)+'. '+String(x.name).slice(0,12);s.textContent=fmt(x.ms/1000);d.append(b,s);return d}))}
+  catch(e){el.textContent='Ranglijst niet beschikbaar.'}
+}
+function openDaily(){
+  const t=dailyTrack();if(!t)return;dTrack=t;$('#dDate').textContent=dayStr();prevTrack($('#dCv'),t);
+  let v=null;try{v=localStorage.getItem(sig(t.world))}catch(e){}$('#dBest').textContent=v?fmt(parseFloat(v)):'-';
+  $('#daily').hidden=false;loadBoard();
+}
+function dailySubmit(t){
+  const name=($('#dnick').value||'Racer').slice(0,12);
+  fetch(SB_URL+'/rest/v1/daily_scores?on_conflict=day,name',{method:'POST',headers:{apikey:SB_KEY,Authorization:'Bearer '+SB_KEY,'Content-Type':'application/json',Prefer:'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({day:daily,name,ms:Math.round(t*1000)})}).catch(()=>{});
+}
+$('#dGo').onclick=()=>{if(!dTrack)return;track=dTrack;if(!renderer)init3d();$('#daily').hidden=true;launch(dayStr())};
+$('#dBack').onclick=()=>{$('#daily').hidden=true};
 addEventListener('pointerdown',audioInit);addEventListener('keydown',audioInit);
 $('#bMute').onclick=()=>{AU.on=!AU.on;$('#bMute').textContent=AU.on?'Geluid aan':'Geluid uit'};
 addEventListener('keydown',e=>{if(e.key==='Enter'&&mode==='draw'&&$('#saved').hidden&&!$('#bGo').disabled)$('#bGo').click()});
 const sd=new THREE.Mesh(new THREE.SphereGeometry(110,16,12),new THREE.MeshBasicMaterial({color:0xffe2b0,fog:false}));sd.position.set(-1800,700,-1300);
-const HDR='<h1 class="logo">THISSIE DRIVE</h1><p class="sub">Teken een circuit. Rijd het.</p><div class="chips"><button class="chip" data-go="how">Hoe werkt het</button><button class="chip" data-go="theme">Thema</button><span class="chip dim">Nederlands</span></div><div class="ban"><b class="new">NIEUW</b><div><h3>Bruggen en ghosts: kruis je baan en jaag op je beste ronde</h3><p>Teken een circuit dat zichzelf kruist, dan komt er een brug. Je beste ronde rijdt als blauwe ghost met je mee. Je banen blijven bewaard op dit apparaat.</p></div><button class="x" data-go="close" aria-label="Sluiten">×</button></div>';
+const HDR='<h1 class="logo">THISSIE RACE</h1><p class="sub">Teken een circuit. Rijd het.</p><div class="chips"><button class="chip" data-go="how">Hoe werkt het</button><button class="chip" data-go="theme">Thema</button><span class="chip dim">Nederlands</span></div><div class="ban"><b class="new">NIEUW</b><div><h3>Nieuw: de dagelijkse proef met ranglijst</h3><p>Elke dag een nieuwe baan, voor iedereen dezelfde. Rijd je snelste ronde en kijk waar je staat. Je beste ronde rijdt als ghost met je mee.</p></div><button class="x" data-go="close" aria-label="Sluiten">×</button></div>';
 document.querySelectorAll('.hd').forEach(h=>h.innerHTML=HDR);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-go]');if(!b)return;const g=b.dataset.go;
   if(g==='modes')show('modes');else if(g==='start')show('start');
   else if(g==='saved'){show('draw');redraw();showSaved()}
   else if(g==='garage'){const from=mode;$('#bGarage').click();back=from}
+  else if(g==='daily')openDaily();
   else if(g==='mp')$('#mp').hidden=false;
   else if(g==='how')$('#how').hidden=false;
   else if(g==='close'){document.querySelectorAll('.ban').forEach(x=>x.hidden=true)}
@@ -393,15 +471,22 @@ $('#how').onclick=e=>{if(e.target.id==='how'||e.target.closest('[data-x]'))$('#h
 /* ---------- realistische auto's ---------- */
 function makeCar(g,t,hex){
   while(g.children.length)g.remove(g.children[0]);
-  const ws=[],P=c=>new THREE.MeshStandardMaterial({color:c,metalness:.35,roughness:.4}),dark=0x12161e,glass=0x0e141d,col=new THREE.Color(hex);
-  const prof=(top,y0,w,c)=>{const pts=new THREE.SplineCurve(top.map(a=>new THREE.Vector2(a[0],a[1]))).getPoints(48),s=new THREE.Shape();s.moveTo(pts[0].x,y0);pts.forEach(p=>s.lineTo(p.x,p.y));s.lineTo(pts[pts.length-1].x,y0);const geo=new THREE.ExtrudeGeometry(s,{depth:w,bevelEnabled:true,bevelThickness:.12,bevelSize:.1,bevelSegments:3});geo.translate(0,0,-w/2);const m=new THREE.Mesh(geo,P(c));m.rotation.y=-Math.PI/2;g.add(m);return m};
+  const ws=[],P=c=>new THREE.MeshPhysicalMaterial({color:c,metalness:.5,roughness:.35,clearcoat:1,clearcoatRoughness:.1}),G=c=>new THREE.MeshPhysicalMaterial({color:c,metalness:.9,roughness:.04}),Gt=c=>new THREE.MeshPhysicalMaterial({color:c,metalness:.6,roughness:.05,transparent:true,opacity:.6,depthWrite:false}),dark=0x12161e,glass=0x0e141d,col=new THREE.Color(hex);
+  const prof=(top,y0,w,c)=>{const pts=new THREE.SplineCurve(top.map(a=>new THREE.Vector2(a[0],a[1]))).getPoints(48),s=new THREE.Shape();s.moveTo(pts[0].x,y0);pts.forEach(p=>s.lineTo(p.x,p.y));s.lineTo(pts[pts.length-1].x,y0);const geo=new THREE.ExtrudeGeometry(s,{depth:w,bevelEnabled:true,bevelThickness:.12,bevelSize:.1,bevelSegments:3});geo.translate(0,0,-w/2);const m=new THREE.Mesh(geo,c===glass?Gt(glass):P(c));m.rotation.y=-Math.PI/2;g.add(m);return m};
   const bx=(w,h,d,c,x,y,z,basic)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),basic?new THREE.MeshBasicMaterial({color:c}):P(c));m.position.set(x,y,z);g.add(m)};
-  const wh=(x,z,r,w)=>{const a=new THREE.Group();a.add(new THREE.Mesh(new THREE.CylinderGeometry(r,r,w,20),P(0x16181c)),new THREE.Mesh(new THREE.CylinderGeometry(r*.62,r*.62,w+.04,12),new THREE.MeshStandardMaterial({color:0xc8ccd2,metalness:.8,roughness:.3})));a.rotation.z=Math.PI/2;a.position.set(x,r,z);g.add(a);ws.push(a)};
-  const hel=(y,z)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(.4,14,10),P(0xf5f5f5));m.position.set(0,y,z);g.add(m)};
+  const wh=(x,z,r,w)=>{const a=new THREE.Group();a.add(new THREE.Mesh(new THREE.CylinderGeometry(r,r,w,20),new THREE.MeshLambertMaterial({color:0x16181c})),new THREE.Mesh(new THREE.CylinderGeometry(r*.62,r*.62,w+.04,12),new THREE.MeshStandardMaterial({color:0xc8ccd2,metalness:.8,roughness:.3})));a.rotation.z=Math.PI/2;a.position.set(x,r,z);g.add(a);ws.push(a)};
+  const hel=(y,z,x0,s)=>{const dg=new THREE.Group(),L=c=>new THREE.MeshLambertMaterial({color:c}),add=(m,x,yy,zz)=>{m.position.set(x,yy,zz);dg.add(m);return m};
+    add(new THREE.Mesh(new THREE.SphereGeometry(.3,18,14),new THREE.MeshStandardMaterial({color:0xf2f2f4,roughness:.3,metalness:.1})),0,0,0);
+    add(new THREE.Mesh(new THREE.SphereGeometry(.312,18,8,Math.PI/2-.95,1.9,.9,.75),G(0x0b0e14)),0,0,0);
+    add(new THREE.Mesh(new THREE.BoxGeometry(.18,.04,.5),L(col)),0,.3,0);
+    add(new THREE.Mesh(new THREE.BoxGeometry(.62,.55,.36),L(0x20242c)),0,-.5,-.05);
+    const sw=add(new THREE.Mesh(new THREE.TorusGeometry(.16,.03,8,18),P(0x111111)),0,-.3,.5);sw.rotation.x=-1;
+    [-1,1].forEach(q=>{const ar=add(new THREE.Mesh(new THREE.BoxGeometry(.11,.11,.55),L(0x20242c)),q*.3,-.45,.25);ar.rotation.x=.15});
+    dg.position.set(x0||0,y,z);dg.scale.setScalar(s||1);g.add(dg)};
   if(t==0){prof([[-1.3,.5],[0,.58],[1.3,.45]],.28,1.3,col);bx(1.7,.18,.2,dark,0,.4,1.6);bx(1.5,.18,.2,dark,0,.4,-1.5);hel(1.1,-.2);[[-.95,.95],[.95,.95],[-.95,-.95],[.95,-.95]].forEach(a=>wh(a[0],a[1],.38,.42))}
-  if(t==1){prof([[-2.2,.62],[-2,.82],[-1,.9],[.2,.92],[1.3,.78],[2.1,.6],[2.25,.5]],.32,1.8,col);prof([[-1.1,.9],[-.6,1.22],[.15,1.28],[.95,.95]],.9,1.45,glass);bx(1.9,.08,.5,dark,0,1.12,-2.05);bx(.1,.3,.1,dark,-.6,.95,-2.05);bx(.1,.3,.1,dark,.6,.95,-2.05);bx(1.9,.06,.4,dark,0,.34,2.25);bx(.25,.12,.2,dark,-1.0,1,.55);bx(.25,.12,.2,dark,1.0,1,.55);[[-1,1.4],[1,1.4],[-1,-1.4],[1,-1.4]].forEach(a=>wh(a[0],a[1],.5,.5))}
+  if(t==1){prof([[-2.2,.62],[-2,.82],[-1,.9],[.2,.92],[1.3,.78],[2.1,.6],[2.25,.5]],.32,1.8,col);prof([[-1.1,.9],[-.6,1.22],[.15,1.28],[.95,.95]],.9,1.45,glass);bx(1.9,.08,.5,dark,0,1.12,-2.05);hel(.98,-.3,-.4,.8);bx(.1,.3,.1,dark,-.6,.95,-2.05);bx(.1,.3,.1,dark,.6,.95,-2.05);bx(1.9,.06,.4,dark,0,.34,2.25);bx(.25,.12,.2,dark,-1.0,1,.55);bx(.25,.12,.2,dark,1.0,1,.55);[[-1,1.4],[1,1.4],[-1,-1.4],[1,-1.4]].forEach(a=>wh(a[0],a[1],.5,.5))}
   if(t==2){prof([[-2.1,.5],[-1.2,.62],[-.2,.6],[.8,.48],[2.5,.4],[3.1,.34]],.24,.8,col);prof([[-1.3,.5],[-.3,.62],[.8,.52]],.26,1.55,col);prof([[-1.7,.5],[-1,1.05],[-.4,.85],[-.1,.62]],.5,.5,col);bx(2.3,.07,.55,dark,0,.27,3.2);bx(.06,.22,.55,col,-1.15,.33,3.2);bx(.06,.22,.55,col,1.15,.33,3.2);bx(1.9,.08,.55,dark,0,1.2,-2.2);bx(.06,.45,.7,col,-.95,1.05,-2.2);bx(.06,.45,.7,col,.95,1.05,-2.2);bx(.1,.6,.1,dark,0,.9,-2.15);hel(.88,-.1);[[-1.25,1.6],[1.25,1.6],[-1.25,-1.5],[1.25,-1.5]].forEach((a,i)=>wh(a[0],a[1],.5,i<2?.5:.65))}
-  if(t==3){prof([[-1.8,.7],[-1.78,.98],[-1,1],[1,.97],[1.8,.78],[1.85,.58]],.3,1.75,col);prof([[-1.35,.98],[-.9,1.52],[.35,1.52],[1.05,.98]],.95,1.55,glass);bx(1.5,.07,1.1,col,0,1.53,-.28);bx(.22,.12,.18,col,-.98,1.05,.7);bx(.22,.12,.18,col,.98,1.05,.7);[[-.92,1.2],[.92,1.2],[-.92,-1.2],[.92,-1.2]].forEach(a=>wh(a[0],a[1],.4,.3))}
+  if(t==3){prof([[-1.8,.7],[-1.78,.98],[-1,1],[1,.97],[1.8,.78],[1.85,.58]],.3,1.75,col);prof([[-1.35,.98],[-.9,1.52],[.35,1.52],[1.05,.98]],.95,1.55,glass);bx(1.5,.07,1.1,col,0,1.53,-.28);hel(1.25,-.35,-.42,.85);bx(.22,.12,.18,col,-.98,1.05,.7);bx(.22,.12,.18,col,.98,1.05,.7);[[-.92,1.2],[.92,1.2],[-.92,-1.2],[.92,-1.2]].forEach(a=>wh(a[0],a[1],.4,.3))}
   const f=[[1.5,.55],[2.3,.62],null,[1.85,.72]][t],b=[[-1.4,.55],[-2.25,.7],[-2.2,.55],[-1.85,.8]][t];
   if(f){bx(.4,.14,.06,0xfff3c4,-.6,f[1],f[0],true);bx(.4,.14,.06,0xfff3c4,.6,f[1],f[0],true)}
   bx(.4,.14,.06,0xff2030,-.55,b[1],b[0],true);bx(.4,.14,.06,0xff2030,.55,b[1],b[0],true);
@@ -488,11 +573,11 @@ function audioStep(dt,drive){
 
 
 /* ---------- keuzescherm en multiplayer ---------- */
-function launch(){buildWorld(track);startRace();const c=track.world;cam.position.set(c[0].x-Math.sin(S.h)*9,4.4,c[0].z-Math.cos(S.h)*9);cam.fov=62;show('drive')}
+function launch(d){daily=d||null;buildWorld(track);startRace();const c=track.world;cam.position.set(c[0].x-Math.sin(S.h)*9,4.4,c[0].z-Math.cos(S.h)*9);cam.fov=62;show('drive')}
 let room=null,isHost=false,mpTrack=null,remotes={},lastSend=0,lastBoard=0;
 $('#modes').onclick=e=>{const b=e.target.closest('button[data-m]');if(!b)return;const m=b.dataset.m;
   if(m==='draw'){show('draw');redraw()}else if(m==='saved'){show('draw');redraw();showSaved()}
-  else if(m==='garage'){$('#bGarage').click();back='modes'}else if(m==='mp')$('#mp').hidden=false};
+  else if(m==='garage'){$('#bGarage').click();back='modes'}else if(m==='daily')openDaily();else if(m==='mp')$('#mp').hidden=false};
 function clearRemotes(){Object.values(remotes).forEach(g=>scene.remove(g));remotes={}}
 function leaveParty(){if(room){room.leave().catch(()=>{});room=null}clearRemotes();mpTrack=null;$('#board').hidden=true;$('#mpA').hidden=false;$('#mpB').hidden=true}
 function sendTrk(){if(room&&track)room.emit('trk',{w:track.world.flatMap(p=>[Math.round(p.x),Math.round(p.z)]),e:track.e.map(v=>Math.round(v*10))}).catch(()=>{})}
@@ -582,7 +667,7 @@ function startRace(){
 }
 function lapDone(){
   S.last=S.t;$('#tLast').textContent='Laatste: '+fmt(S.t);
-  if(S.best==null||S.t<S.best){S.best=S.t;saveBest(S.t);S.ghost={T:S.t,p:S.rec};saveG(S.ghost);$('#tBest').textContent=fmt(S.t)}
+  if(S.best==null||S.t<S.best){S.best=S.t;saveBest(S.t);S.ghost={T:S.t,p:S.rec};saveG(S.ghost);if(daily)dailySubmit(S.t);$('#tBest').textContent=fmt(S.t)}
   S.lap++;S.t=0;S.rec=snap();S.ra=0;$('#tLap').textContent='Ronde '+S.lap;
 }
 function step(dt){
@@ -598,7 +683,7 @@ function step(dt){
   // rijden
   const LIM=W/2+7;if(off>LIM&&S.E[bi]<.5){const a=c[(bi+N-1)%N],b=c[(bi+1)%N],tx=b.x-a.x,tz=b.z-a.z,l=Math.hypot(tx,tz)||1,nx=tz/l,nz=-tx/l,sd=Math.sign((S.x-c[bi].x)*nx+(S.z-c[bi].z)*nz)||1,push=off-LIM;S.x-=sd*nx*push;S.z-=sd*nz*push;if(Math.abs(S.sp)>5){S.sp*=.55;S.sl=(S.sl||0)*.4;AU.hit=1}}
   const C=CARS[sel.car],on=off<W/2+1.4,maxS=on?C.top:24;S.on=on;
-  if(S.go){if(keys.up)S.sp+=C.acc*(1-.75*Math.pow(Math.min(1,S.sp/C.top),2))*dt;if(keys.down)S.sp-=(S.sp>0?85:25)*dt;S.t+=dt;S.ra+=dt;while(S.ra>=.1){S.ra-=.1;S.rec.push(...snap())}}
+  if(S.go){S.th=keys.up?Math.min(1,(S.th||0)+dt*3.5):Math.max(0,(S.th||0)-dt*5);if(!keys.down)S.bk=Math.max(0,(S.bk||0)-dt*5);if(keys.up)S.sp+=C.acc*S.th*(1-.75*Math.pow(Math.min(1,S.sp/C.top),2))*dt;if(keys.down){S.bk=Math.min(1,(S.bk||0)+dt*2.4);S.sp-=(S.sp>0?50:20)*S.bk*dt}S.t+=dt;S.ra+=dt;while(S.ra>=.1){S.ra-=.1;S.rec.push(...snap())}}
   S.sp-=S.sp*(on?.18:1.8)*dt;
   if(S.sp>maxS)S.sp-=(S.sp-maxS)*4*dt;if(S.sp<-10)S.sp=-10;
   const want=(keys.left?1:0)-(keys.right?1:0);S.st+=(want-S.st)*Math.min(1,dt*(want?3.2:6));
@@ -616,18 +701,18 @@ function step(dt){
   cam.position.x+=(S.x-fx*(9+Math.abs(S.sp)*.06)-cam.position.x)*k;cam.position.y+=(S.y+4.4-cam.position.y)*k;cam.position.z+=(S.z-fz*(9+Math.abs(S.sp)*.06)-cam.position.z)*k;
   cam.lookAt(S.x+fx*8,S.y+1,S.z+fz*8);cam.fov=62+Math.abs(S.sp)*.32;cam.updateProjectionMatrix();
   if(S.ghost&&S.go){const p=S.ghost.p,f=S.t/.1,i=Math.floor(f),n=p.length/4;if(i<n-1){const u=f-i,A=i*4,B=A+4;let dh=p[B+3]-p[A+3];dh=Math.atan2(Math.sin(dh),Math.cos(dh));gh.visible=true;gh.position.set(p[A]+(p[B]-p[A])*u,p[A+2]+(p[B+2]-p[A+2])*u+.5,p[A+1]+(p[B+1]-p[A+1])*u);gh.rotation.y=p[A+3]+dh*u}else gh.visible=false}else gh.visible=false;
-  mpStep(dt);$('#tNow').textContent=fmt(S.t);$('#tLap').textContent='Ronde '+S.lap;$('#sv').textContent=Math.round(Math.abs(S.sp)*3.6);$('#fx').style.opacity=Math.min(.85,Math.abs(S.sp)/C.top*.85);
+  mpStep(dt);$('#tNow').textContent=fmt(S.t);$('#tLap').textContent=(daily?'Dagelijks \u00b7 ':'')+'Ronde '+S.lap;$('#sv').textContent=Math.round(Math.abs(S.sp)*3.6);{const r=Math.min(1,Math.abs(S.sp)/C.top);$('#fx').style.opacity=Math.min(.85,r*.85);$('#sbar i').style.width=(r*100)+'%'}
 }
 
 /* ---------- schermen ---------- */
 function show(m){
   mode=m;const d=m==='draw',g=m==='garage',r=m==='drive';
-  dc.hidden=!d;$('#gl').hidden=d;$('#menu').hidden=!d;$('#menuBar').hidden=!d;$('#garage').hidden=!g;$('#start').hidden=m!=='start';$('#modes').hidden=m!=='modes';$('#lines').hidden=!(m==='start'||m==='modes');
+  dc.hidden=!d;$('#gl').hidden=d;$('#menu').hidden=!d;$('#menuBar').hidden=!d;$('#garage').hidden=!g;$('#start').hidden=m!=='start';$('#modes').hidden=m!=='modes';$('#lines').hidden=m!=='modes';
   $('#hud').hidden=!r;$('#spd').hidden=!r;$('#fx').hidden=!r;$('#pad').hidden=!r;$('#top').hidden=!r;$('#cd').textContent='';
 }
 $('#bClear').onclick=()=>{raw=[];track=null;$('#bGo').disabled=true;$('#hint').textContent='Teken een rondje met je vinger of muis. Dat wordt je circuit.';redraw()};
 $('#bSample').onclick=sample;
-$('#bGo').onclick=()=>{if(!track)return;if(!renderer)init3d();buildWorld(track);startRace();
+$('#bGo').onclick=()=>{if(!track)return;if(!renderer)init3d();daily=null;buildWorld(track);startRace();
   const c=track.world;cam.position.set(c[0].x-Math.sin(S.h)*9,4.4,c[0].z-Math.cos(S.h)*9);show('drive')};
 $('#bRestart').onclick=startRace;
 $('#bRedraw').onclick=()=>{leaveParty();S=null;show('modes')};
@@ -635,7 +720,7 @@ addEventListener('resize',fit);
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>{redraw();drawLines()});
 
 let last=performance.now();
-(function loop(now){requestAnimationFrame(loop);const dt=Math.min(.05,(now-last)/1000);last=now;audioStep(dt,mode==='drive');if(mode==='drive'){let a=dt;while(a>1e-4){const h=Math.min(a,1/60);step(h);a-=h}renderer.render(scene,cam)}else if(mode==='garage'||mode==='start'||mode==='modes'){gt+=dt;car.rotation.x=0;gh.visible=false;if(world)world.visible=false;car.position.set(0,0,0);if(mode!=='garage'){car.rotation.y=.5;cam.position.set(Math.sin(gt*.25)*8,1.8,Math.cos(gt*.25)*8)}else{car.rotation.y=gt*.6;cam.position.set(5.5,2.6,7)}cam.lookAt(0,.7,0);renderer.render(scene,cam)}})(last);
+(function loop(now){requestAnimationFrame(loop);const dt=Math.min(.05,(now-last)/1000);last=now;audioStep(dt,mode==='drive');if(mode==='drive'){let a=dt;while(a>1e-4){const h=Math.min(a,1/60);step(h);a-=h}renderer.render(scene,cam)}else if(mode==='garage'||mode==='start'||mode==='modes'){gt+=dt;car.rotation.x=0;gh.visible=false;if(world)world.visible=false;car.position.set(0,0,0);if(mode!=='garage'){car.rotation.y=.6+Math.sin(gt*.3)*.15;cam.position.set(6.2+Math.sin(gt*.2)*1.2,1.4,8.4)}else{car.rotation.y=gt*.6;cam.position.set(5.5,2.6,7)}cam.lookAt(mode==='start'&&innerWidth>innerHeight?-2.4:0,.8,0);renderer.render(scene,cam)}})(last);
 init3d();cam.fov=50;cam.updateProjectionMatrix();show('start');fit();
 </script>
 </body>
