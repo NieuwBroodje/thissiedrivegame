@@ -5,10 +5,10 @@ on:
     inputs:
       version:
         description: Versienummer (bijv. 1.1)
-        default: "1.1"
+        default: "1.2"
       build:
         description: Buildnummer (bijv. 2)
-        default: "2"
+        default: "3"
 
 jobs:
   build:
@@ -25,6 +25,7 @@ jobs:
           mkdir -p www
           if [ -f index.html ]; then cp index.html www/; fi
           if [ -f three.min.js ]; then cp three.min.js www/; fi
+          if [ -f supabase.js ]; then cp supabase.js www/; fi
           ls -la www
 
       - name: Installeer Capacitor
