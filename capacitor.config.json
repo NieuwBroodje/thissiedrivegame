@@ -1,6 +1,6 @@
 {
   "appId": "com.thissie.drive",
-  "appName": "Thissie Drive",
+  "appName": "Thissie Race",
   "webDir": "www",
   "ios": {
     "contentInset": "never",
