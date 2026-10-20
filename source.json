@@ -19,6 +19,15 @@
       "screenshots": [],
       "versions": [
         {
+          "version": "1.2",
+          "buildVersion": "3",
+          "date": "2026-10-18",
+          "localizedDescription": "Multiplayer met partycode werkt nu echt.",
+          "downloadURL": "https://github.com/NieuwBroodje/thissiedrivegame/releases/download/v1.2/ThissieDrive.ipa",
+          "size": 1073629,
+          "minOSVersion": "13.0"
+        },
+        {
           "version": "1.1",
           "buildVersion": "2",
           "date": "2026-10-17",
@@ -33,7 +42,7 @@
           "date": "2026-10-16",
           "localizedDescription": "Eerste versie.",
           "downloadURL": "https://github.com/NieuwBroodje/thissiedrivegame/releases/download/v1/ThissieDrive.ipa",
-          "size": 1016397,
+          "size": 993000,
           "minOSVersion": "13.0"
         }
       ],
