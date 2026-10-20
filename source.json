@@ -1,5 +1,5 @@
 {
-  "name": "Thissie Drive",
+  "name": "Thissie Race",
   "identifier": "com.thissie.drive.source",
   "sourceURL": "https://raw.githubusercontent.com/NieuwBroodje/thissiedrivegame/main/source.json",
   "subtitle": "Teken een circuit en race het.",
@@ -8,23 +8,32 @@
   "tintColor": "#FFB41F",
   "apps": [
     {
-      "name": "Thissie Drive",
+      "name": "Thissie Race",
       "bundleIdentifier": "com.thissie.drive",
       "developerName": "Thissie",
       "subtitle": "Teken en race",
-      "localizedDescription": "Teken een circuit en rijd het in 3D.",
+      "localizedDescription": "Teken een circuit en race het in 3D. Met dagelijkse proef en multiplayer.",
       "iconURL": "https://raw.githubusercontent.com/NieuwBroodje/thissiedrivegame/main/icon.png",
       "tintColor": "#FFB41F",
       "category": "games",
       "screenshots": [],
       "versions": [
         {
+          "version": "1.3",
+          "buildVersion": "4",
+          "date": "2026-10-19",
+          "localizedDescription": "Nieuw startscherm, dagelijkse proef met ranglijst, mooier tekenen, realistischere auto's en betere besturing.",
+          "downloadURL": "https://github.com/NieuwBroodje/thissiedrivegame/releases/download/v1.3/ThissieDrive.ipa",
+          "size": 1300000,
+          "minOSVersion": "13.0"
+        },
+        {
           "version": "1.2",
           "buildVersion": "3",
           "date": "2026-10-18",
           "localizedDescription": "Multiplayer met partycode werkt nu echt.",
           "downloadURL": "https://github.com/NieuwBroodje/thissiedrivegame/releases/download/v1.2/ThissieDrive.ipa",
-          "size": 1073629,
+          "size": 1250000,
           "minOSVersion": "13.0"
         },
         {
